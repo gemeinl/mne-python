@@ -1257,6 +1257,9 @@ class BaseEpochs(ProjMixin, ContainsMixin, UpdateChannelsMixin, ShiftTimeMixin,
         subsequently be applied, `epochs.copy <mne.Epochs.copy>` should be
         used.
         """
+        if reject is None and flat is None:
+          self._bad_dropped = True
+          return self
         if reject == 'existing':
             if flat == 'existing' and self._bad_dropped:
                 return
